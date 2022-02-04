@@ -41,8 +41,15 @@ public class TicTacToe extends Canvas {
     //Put your code here
 
     //createBoard
+    /**
+     * This function creates a game board
+     * @param rows number of rows
+     * @param columns number of columns
+     * @return 2D array with number of rows and columns passed in parameters, filled with '0's
+     */
     public static int[][] createBoard(int rows, int columns) {
-
+        //create 2D array named "board" with number of rows and columns passed in parameters
+        //board is filled with 0's
         int[][] board = new int[rows][columns];
 
         return board;
