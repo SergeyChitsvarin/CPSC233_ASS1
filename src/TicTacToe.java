@@ -39,35 +39,54 @@ public class TicTacToe extends Canvas {
      * ---------------------------------------------------------------------------------------------------------- */
 
     //Put your code here
+
     //createBoard
-    //public static void createBoard(int rows, int columns);{
-    //}
+    public static int[][] createBoard(int rows, int columns) {
+
+        int[][] board = new int[rows][columns];
+
+        return board;
+    }
+
     //rowsIn
     //public static void rowsIn(board);{
     //}
+
     //columnsIn
     //public static void columnsIn(board);{
     //}
+
     //canPlay
     //public static void canPlay(board, int row, int column);{
     //}
+
     //play
     //public static void play(board, int row, int column);{
     //}
+
     //full
     //public static void full(board);{
     //}
+
     //wininRow
     //public static void winInRow(board, int row, int piece);{
     //}
+
     //winInColumn
     //public static void(board, int column, int piece);{
     //}
+
     //winInDiagonalBS
-    //public static void(
-    //
+    //public static void winInDiagonalBS(board, int piece);{
+    //}
+
     //winInDigonalFS
+    //public static void winInDigonalFS(board, int piece);{
+    //}
+
     //hint
+    //public static void hint(board, int piece);{
+    //}
 
     //The following are completed for you already
 
