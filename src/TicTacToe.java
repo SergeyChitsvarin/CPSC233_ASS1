@@ -55,13 +55,26 @@ public class TicTacToe extends Canvas {
         return board;
     }
 
+    /**
+     *
+     * @param board 2d array of the game board
+     * @return number of rows the board has
+     */
     //rowsIn
-    //public static void rowsIn(board);{
-    //}
+    public static int rowsIn(int[][] board){
+        int rowCount = board.length;
+        return rowCount;
+    }
 
-    //columnsIn
-    //public static void columnsIn(board);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @return number of columns the board has
+     */
+    public static int columnsIn(int[][] board){
+        int amountOfOColumns = board[0].length;
+        return amountOfOColumns;
+    }
 
     //canPlay
     //public static void canPlay(board, int row, int column);{
