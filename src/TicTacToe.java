@@ -87,9 +87,16 @@ public class TicTacToe extends Canvas {
 
     }
 
-    //play
-    //public static void play(board, int row, int column);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param row certain row of the game board
+     * @param column certain column of the game board
+     * @param piece either 1 (X) or 2 (O)
+     */
+    public static void play(int[][] board, int row, int column, int piece){
+        board[row][column] = piece;
+    }
 
     //full
     //public static void full(board);{

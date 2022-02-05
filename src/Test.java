@@ -22,16 +22,26 @@ public class Test {
         return (board[row][column] == 0);
 
     }
+    public static void play(int[][] board, int row, int column, int piece){
+        board[row][column] = piece;
+    }
 
+    public static boolean full(int[][] board){
+        if
+    }
 
     public static void main(String[] args) {
-        System.out.println(Test.createBoard(3, 5));
-        System.out.println(Test.rowsIn(Test.createBoard(3, 5)));
-        System.out.println(Test.columnsIn(Test.createBoard(3, 5)));
-        int [][] fakeBoard = new int[3][5];
-        fakeBoard[2][3] = 7;
-        boolean doesItWork = Test.canPlay(fakeBoard, 1, 3);
-        System.out.println(doesItWork);
+        //System.out.println(Test.createBoard(3, 5));
+        //System.out.println(Test.rowsIn(Test.createBoard(3, 5)));
+        //System.out.println(Test.columnsIn(Test.createBoard(3, 5)));
+        int [][] fakeBoard = new int[3][3];
+        Test.play(fakeBoard, 1, 1, 1);
+        Test.play(fakeBoard, 2, 1, 2);
+        System.out.println(fakeBoard[1][1]);
+        System.out.println(fakeBoard[2][1]);
+        //fakeBoard[2][3] = 7;
+        //boolean doesItWork = Test.canPlay(fakeBoard, 1, 3);
+        //System.out.println(doesItWork);
     }
 }
 
