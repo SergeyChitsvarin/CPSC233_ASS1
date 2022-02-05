@@ -18,11 +18,20 @@ public class Test {
         return amountOfOColumns;
     }
 
+    public static boolean canPlay(int [][] board, int row, int column){
+        return (board[row][column] == 0);
+
+    }
+
 
     public static void main(String[] args) {
         System.out.println(Test.createBoard(3, 5));
         System.out.println(Test.rowsIn(Test.createBoard(3, 5)));
         System.out.println(Test.columnsIn(Test.createBoard(3, 5)));
+        int [][] fakeBoard = new int[3][5];
+        fakeBoard[2][3] = 7;
+        boolean doesItWork = Test.canPlay(fakeBoard, 1, 3);
+        System.out.println(doesItWork);
     }
 }
 

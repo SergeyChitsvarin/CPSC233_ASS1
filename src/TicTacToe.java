@@ -40,7 +40,6 @@ public class TicTacToe extends Canvas {
 
     //Put your code here
 
-    //createBoard
     /**
      * This function creates a game board
      * @param rows number of rows
@@ -60,25 +59,33 @@ public class TicTacToe extends Canvas {
      * @param board 2d array of the game board
      * @return number of rows the board has
      */
-    //rowsIn
+    // refferences: finding number of rows https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
     public static int rowsIn(int[][] board){
         int rowCount = board.length;
         return rowCount;
     }
-
     /**
      *
      * @param board 2d array of the game board
      * @return number of columns the board has
      */
+    // refferences: finding number of columns https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
     public static int columnsIn(int[][] board){
-        int amountOfOColumns = board[0].length;
-        return amountOfOColumns;
+        int columnCount = board[0].length;
+        return columnCount;
     }
 
-    //canPlay
-    //public static void canPlay(board, int row, int column);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param row certain row of the game board
+     * @param column certain column of the game board
+     * @return
+     */
+    public static boolean canPlay(int [][] board, int row, int column){
+        return (board[row][column] == 0);
+
+    }
 
     //play
     //public static void play(board, int row, int column);{
