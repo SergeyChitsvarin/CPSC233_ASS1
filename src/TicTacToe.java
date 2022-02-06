@@ -117,9 +117,23 @@ public class TicTacToe extends Canvas {
         return true;
     }
 
-    //winInRow
-    //public static void winInRow(board, int row, int piece);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param row certain row of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @return boolean value indicating a winning lane if true.
+     */
+    public static boolean winInRow(int[][] board, int row, int piece){
+        int columnCount = Test.columnsIn(board);
+        for(int column = 0; column < columnCount; column++){
+            if (board[row][column] == piece){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 
     //winInColumn
     //public static void(board, int column, int piece);{
