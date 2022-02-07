@@ -104,8 +104,8 @@ public class TicTacToe extends Canvas {
      * @return boolean that determines if the board is full or not
      */
     public static boolean full(int[][] board){
-        int rowCount = Test.rowsIn(board);
-        int columnCount = Test.columnsIn(board);
+        int rowCount = TicTacToe.rowsIn(board);
+        int columnCount = TicTacToe.columnsIn(board);
         for(int row = 0; row < rowCount; row++){
             for(int column = 0; column < columnCount; column++){
                 if (board[row][column] == 0){
@@ -122,26 +122,73 @@ public class TicTacToe extends Canvas {
      * @param board 2d array of the game board
      * @param row certain row of the game board
      * @param piece either 1 (X) or 2 (O)
-     * @return boolean value indicating a winning lane if true.
+     * @return boolean value indicating a winning row if true.
      */
-    public static boolean winInRow(int[][] board, int row, int piece){
-        int columnCount = Test.columnsIn(board);
-        for(int column = 0; column < columnCount; column++){
-            if (board[row][column] == piece){
+    public static boolean winInRow(int[][] board, int row, int piece) {
+        int columnCount = TicTacToe.columnsIn(board);
+        int conseqCount = 0;
+        for (int column = 0; column < columnCount; column++) {
+            if (board[row][column] == piece) {
+                conseqCount++;
+            }
+            else {
+                conseqCount = 0;
+            }
+            if (conseqCount == 3) {
                 return true;
             }
-            return false;
         }
         return false;
     }
 
-    //winInColumn
-    //public static void(board, int column, int piece);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param column certain column of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @return boolean value indicating a winning column if true
+     */
+    public static boolean winInColumn(int[][] board, int column, int piece) {
+        int rowCount = TicTacToe.rowsIn(board);
+        int conseqCount = 0;
+        for (int row = 0; column < rowCount; row++) {
+            if (board[row][column] == piece) {
+                conseqCount++;
+            }
+            else {
+                conseqCount = 0;
+            }
+            if (conseqCount == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    //winInDiagonalBS
-    //public static void winInDiagonalBS(board, int piece);{
-    //}
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @return boolean value indicating a winning backslash diagonal if true
+     */
+    public static boolean winInDiagonalBS(int[][] board, int piece){
+        int rowCount = TicTacToe.rowsIn(board);
+        int conseqCount = 0;
+        int currentColumn = 0;
+        for (int row = 0; row < rowCount; row++) {
+            if (board[row][currentColumn] == piece) {
+                conseqCount++;
+            }
+            else {
+                conseqCount = 0;
+            }
+            if (conseqCount == 3) {
+                return true;
+            }
+            currentColumn++;
+        }
+        return false;
+    }
 
     //winInDigonalFS
     //public static void winInDigonalFS(board, int piece);{
