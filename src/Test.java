@@ -141,14 +141,17 @@ public class Test {
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
         // check top diagonals
-        for (int currentColumnIndex = 0; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
-            boolean won = Test.checkSingleDiagonalFS(board, piece, lastRowIndex, currentColumnIndex);
+
+        for (int currentColumnIndex = lastColumnIndex; currentColumnIndex >= 0; currentColumnIndex--){
+            boolean won = Test.checkSingleDiagonalFS(board, piece, 0, currentColumnIndex);
             if (won){
                 return true;
             }
         }
-        int currentColumnIndex = 0;
-        for (int currentRowIndex = lastRowIndex-1; currentRowIndex <= lastRowIndex; currentRowIndex--) {
+
+
+        int currentColumnIndex = lastColumnIndex;
+        for (int currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
             boolean won = Test.checkSingleDiagonalFS(board, piece, currentRowIndex, currentColumnIndex);
             if (won){
                 return true;
@@ -165,12 +168,12 @@ public class Test {
         //System.out.println(Test.rowsIn(Test.createBoard(3, 5)));
         //System.out.println(Test.columnsIn(Test.createBoard(3, 5)));
         int [][] fakeBoard = new int[5][3];
-        fakeBoard[0][2] = 1;
-        fakeBoard[1][1] = 0;
-        fakeBoard[2][0] = 1;
+        fakeBoard[2][2] = 1;
+        fakeBoard[3][1] = 1;
+        fakeBoard[4][0] = 1;
         //fakeBoard[1][1] = 1;
         //boolean bool = winInRow(fakeBoard, 2, 1);
-        boolean bool  = checkSingleDiagonalFS(fakeBoard, 1, 0, 2);
+        boolean bool  = winInDiagonalFS(fakeBoard, 1);
         //boolean bool = Test.full(fakeBoard);
         System.out.println(bool);
     }
