@@ -169,14 +169,17 @@ public class TicTacToe extends Canvas {
      *
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
-     * @return boolean value indicating a winning backslash diagonal if true
+     * @param currentRowIndex index of the row from which to start going through diagonals
+     * @param currentColumnIndex index of the column from which to start going through diagonals
+     * @return return a boolean value indicating 3 consecutive pieces if true
      */
-    public static boolean winInDiagonalBS(int[][] board, int piece){
-        int rowCount = TicTacToe.rowsIn(board);
+    public static boolean checkSingleDiagonalBS(int[][] board, int piece, int currentRowIndex, int currentColumnIndex){
+        int lastColumnIndex = columnsIn(board)-1;
+        int lastRowIndex = rowsIn(board)-1;
         int conseqCount = 0;
-        int currentColumn = 0;
-        for (int row = 0; row < rowCount; row++) {
-            if (board[row][currentColumn] == piece) {
+
+        while (currentRowIndex <= lastRowIndex && currentColumnIndex <= lastColumnIndex){
+            if (board[currentRowIndex][currentColumnIndex] == piece) {
                 conseqCount++;
             }
             else {
@@ -185,8 +188,36 @@ public class TicTacToe extends Canvas {
             if (conseqCount == 3) {
                 return true;
             }
-            currentColumn++;
+            currentColumnIndex++;
+            currentRowIndex++;
         }
+        return false;
+    }
+    /**
+     *
+     * @param board 2d array of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @return boolean value indicating a winning backslash diagonal if true
+     */
+    public static boolean winInDiagonalBS(int[][] board, int piece){
+        int lastColumnIndex = columnsIn(board)-1;
+        int lastRowIndex = rowsIn(board)-1;
+        // check top diagonals
+        int currentRowIndex = 0;
+        for (int currentColumnIndex = 0; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
+            boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            if (won){
+                return true;
+            }
+        }
+        int currentColumnIndex = 0;
+        for (currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
+            boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            if (won){
+                return true;
+            }
+        }
+
         return false;
     }
 

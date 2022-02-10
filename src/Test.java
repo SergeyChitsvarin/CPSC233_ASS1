@@ -74,12 +74,56 @@ public class Test {
         return false;
     }
 
+    public static boolean checkSingleDiagonalBS(int[][] board, int piece, int currentRowIndex, int currentColumnIndex){
+        int lastColumnIndex = columnsIn(board)-1;
+        int lastRowIndex = rowsIn(board)-1;
+        int conseqCount = 0;
+
+        while (currentRowIndex <= lastRowIndex && currentColumnIndex <= lastColumnIndex){
+            if (board[currentRowIndex][currentColumnIndex] == piece) {
+                conseqCount++;
+            }
+            else {
+                conseqCount = 0;
+            }
+            if (conseqCount == 3) {
+                return true;
+            }
+            currentColumnIndex++;
+            currentRowIndex++;
+        }
+        return false;
+    }
     public static boolean winInDiagonalBS(int[][] board, int piece){
+        int lastColumnIndex = columnsIn(board)-1;
+        int lastRowIndex = rowsIn(board)-1;
+        // check top diagonals
+        int currentRowIndex = 0;
+        for (int currentColumnIndex = 0; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
+            boolean won = Test.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            if (won){
+                return true;
+            }
+        }
+        int currentColumnIndex = 0;
+        for (currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
+            boolean won = Test.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            if (won){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean winInDiagonalFS(int[][] board, int piece){
         int rowCount = Test.rowsIn(board);
+        int columnCount = Test.columnsIn(board);
         int conseqCount = 0;
         int currentColumn = 0;
-        for (int rowcount = 0; rowCount > 0; rowCount--) {
-            if (board[rowCount][currentColumn] == piece) {
+        int row = rowCount -1;
+        while (row >= 0 && currentColumn < columnCount) {
+            if (board[row][currentColumn] == piece) {
                 conseqCount++;
             }
             else {
@@ -89,12 +133,9 @@ public class Test {
                 return true;
             }
             currentColumn++;
+            row--;
         }
         return false;
-    }
-
-    public static boolean winInDiagonalFS(int[][] board, int piece){
-
     }
 
 
@@ -104,12 +145,12 @@ public class Test {
         //System.out.println(Test.rowsIn(Test.createBoard(3, 5)));
         //System.out.println(Test.columnsIn(Test.createBoard(3, 5)));
         int [][] fakeBoard = new int[5][5];
-        fakeBoard[0][0] = 1;
-        fakeBoard[1][1] = 1;
-        fakeBoard[2][2] = 1;
-        fakeBoard[1][1] = 1;
+        fakeBoard[1][0] = 1;
+        fakeBoard[2][1] = 1;
+        fakeBoard[3][2] = 0;
+        //fakeBoard[1][1] = 1;
         //boolean bool = winInRow(fakeBoard, 2, 1);
-        boolean bool  = winInDiagonalBS(fakeBoard, 1);
+        boolean bool  = winInDiagonalBS(fakeBoard,1);
         //boolean bool = Test.full(fakeBoard);
         System.out.println(bool);
     }
