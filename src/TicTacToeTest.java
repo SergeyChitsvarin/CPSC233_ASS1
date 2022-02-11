@@ -72,7 +72,7 @@ class TicTacToeTest {
     void canPlayOpenSuccess() {
         int[][] board = TicTacToe.createBoard(5,3);
         boolean open = TicTacToe.canPlay(board, 0,0);
-        assertEquals(true, open);
+        assertTrue(open);
     }
 
     /**
@@ -83,7 +83,7 @@ class TicTacToeTest {
         int[][] board = TicTacToe.createBoard(5,3);
         board[0][0] = 1;
         boolean open = TicTacToe.canPlay(board, 0,0);
-        assertEquals(false, open);
+        assertFalse(open);
     }
 
     /**
@@ -93,8 +93,8 @@ class TicTacToeTest {
     void playPiece1Success() {
         int[][] board = TicTacToe.createBoard(5,4);
         TicTacToe.play(board, 2,2,1);
-        int actual = board[2][2];
-        assertEquals(1, actual);
+        int pieceAtPosition = board[2][2];
+        assertEquals(1, pieceAtPosition);
     }
 
     /**
@@ -104,42 +104,187 @@ class TicTacToeTest {
     void playPiece2Success() {
         int[][] board = TicTacToe.createBoard(5,3);
         TicTacToe.play(board, 0,0,2);
-        int actual = board[0][0];
-        assertEquals(2, actual);
+        int pieceAtPosition = board[0][0];
+        assertEquals(2, pieceAtPosition);
     }
 
     /**
      * returns true if the board is full
      */
     @Test
-    void fullSuccess() {
+    void fullBoardSuccess() {
         int[][] board = TicTacToe.createBoard(3,3);
         board[0][0] = 1; board[0][1] = 1; board[0][2] = 1;
         board[1][0] = 1; board[1][1] = 1; board[1][2] = 1;
         board[2][0] = 1; board[2][1] = 1; board[2][2] = 1;
-        boolean actual = TicTacToe.full(board);
-        assertEquals(true, actual);
+        boolean full = TicTacToe.full(board);
+        assertTrue(full);
 
     }
 
+    /**
+     * returns false if the board is not full (empty)
+     */
     @Test
-    void winInRow() {
+    void fullEmptyBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        boolean full = TicTacToe.full(board);
+        assertFalse(full);
+
     }
 
+    /**
+     * returns false if the board is partially filled
+     */
     @Test
-    void winInColumn() {
+    void fullHalfFilledBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][0] = 1; board[0][1] = 1; board[0][2] = 1;
+        board[1][0] = 1; board[1][1] = 1;
+        boolean full = TicTacToe.full(board);
+        assertFalse(full);
+
     }
 
+    /**
+     * checks if function returns true if row has 3 of the same consecutive piece that was given (1)
+     */
     @Test
-    void winInDiagonalBS() {
+    void winInRowSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][0] = 1; board[0][1] = 1; board[0][2] = 1;
+        boolean win = TicTacToe.winInRow(board, 0, 1);
+        assertTrue(win);
     }
 
+    /**
+     * checks if function returns false if row has less than 3 of the same consecutive piece that was given (1)
+     */
     @Test
-    void winInDiagonalFS() {
+    void winInRowLossSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[2][0] = 0; board[2][1] = 1; board[2][2] = 1;
+        boolean win = TicTacToe.winInRow(board, 2, 1);
+        assertFalse(win);
+    }
+
+    /**
+     * checks if function returns false with empty board
+     */
+    @Test
+    void winInRowEmptyBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        boolean win = TicTacToe.winInRow(board, 2, 2);
+        assertFalse(win);
+    }
+
+    /**
+     * checks if function returns true if column has 3 of the same consecutive piece that was given (1)
+     */
+    @Test
+    void winInColumnSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][0] = 1; board[1][0] = 1; board[2][0] = 1;
+        boolean win = TicTacToe.winInColumn(board, 0, 1);
+        assertTrue(win);
+    }
+
+    /**
+     * checks if function returns false if column has less than 3 of the same consecutive piece that was given (1)
+     */
+    @Test
+    void winInColumnLossSuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][2] = 0; board[1][2] = 1; board[2][2] = 1;
+        boolean win = TicTacToe.winInColumn(board, 2, 1);
+        assertFalse(win);
+    }
+
+    /**
+     * checks if function returns false with empty board
+     */
+    @Test
+    void winInColumnEmptyBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        boolean win = TicTacToe.winInRow(board, 2, 2);
+        assertFalse(win);
+    }
+
+    /**
+     * when a diagonal has 3 consecutive given pieces (2) it returns true
+     */
+    @Test
+    void winInDiagonalBSSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        board[2][2] = 2;
+        board[3][3] = 2;
+        board[4][4] = 2;
+        boolean win = TicTacToe.winInDiagonalBS(board, 2);
+        assertTrue(win);
+    }
+
+    /**
+     * when none of the diagonals have 3 consecutive given pieces (2) it returns false
+     */
+    @Test
+    void winInDiagonalBSLossSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        board[0][0] = 2;
+        board[2][1] = 2;
+        board[2][2] = 2;
+        boolean win = TicTacToe.winInDiagonalBS(board, 2);
+        assertFalse(win);
+    }
+
+    /**
+     * when the board is empty it returns false
+     */
+    @Test
+    void winInDiagonalBSEmptyBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        boolean win = TicTacToe.winInDiagonalBS(board, 2);
+        assertFalse(win);
+    }
+
+    /**
+     * when a diagonal has 3 consecutive given pieces (2) it returns true
+     */
+    @Test
+    void winInDiagonalFSSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        board[2][2] = 2;
+        board[1][3] = 2;
+        board[0][4] = 2;
+        boolean win = TicTacToe.winInDiagonalFS(board, 2);
+        assertTrue(win);
+    }
+
+    /**
+     * when none of the diagonals have 3 consecutive given pieces (2) it returns false
+     */
+    @Test
+    void winInDiagonalFSLossSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        board[0][0] = 2;
+        board[2][1] = 2;
+        board[2][2] = 2;
+        boolean win = TicTacToe.winInDiagonalFS(board, 2);
+        assertFalse(win);
+    }
+
+    /**
+     * when the board is empty it returns false
+     */
+    @Test
+    void winInDiagonalFSEmptyBoardSuccess() {
+        int[][] board = TicTacToe.createBoard(5,5);
+        boolean win = TicTacToe.winInDiagonalFS(board, 2);
+        assertFalse(win);
     }
 
     @Test
     void hint() {
+
     }
 
     @Test

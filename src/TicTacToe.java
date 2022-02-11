@@ -90,8 +90,6 @@ public class TicTacToe extends Canvas {
     /**
      *
      * @param board 2d array of the game board
-     * @param row certain row of the game board
-     * @param column certain column of the game board
      * @param piece either 1 (X) or 2 (O)
      */
     public static void play(int[][] board, int row, int column, int piece){
@@ -149,7 +147,7 @@ public class TicTacToe extends Canvas {
      * @return boolean value indicating a winning column if true
      */
     public static boolean winInColumn(int[][] board, int column, int piece) {
-        int rowCount = TicTacToe.rowsIn(board)-1;
+        int rowCount = TicTacToe.rowsIn(board);
         int conseqCount = 0;
         for (int row =0; row < rowCount; row++) {
             if (board[row][column] == piece) {
@@ -280,7 +278,16 @@ public class TicTacToe extends Canvas {
         return false;
     }
 
+    /**
+     * the function checks if there is a win in any possible position on the board
+     * @param board board 2d array of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @param row certain row of the game board
+     * @param column certain column of the game board
+     * @return a boolean value (true if won) and (false if no win)
+     */
     static public boolean won(int[][] board, int row, int column, int piece){
+        // if there is a win in a row, column or either of the diagonals return true
         if (winInRow(board, row, piece)){
             return true;
         }
@@ -293,25 +300,44 @@ public class TicTacToe extends Canvas {
         if (winInDiagonalBS(board, piece)){
             return true;
         }
+        // if there is no win returns false
         return false;
     }
+
+    /**
+     * The function goes through every row and column on the board and checks
+     * if the player can play then the function plays a piece and checks if the player won
+     * if won it removes the players piece
+     * if can't play for the beginning the function returns -1 for row and column
+     * @param board board 2d array of the game board
+     * @param piece either 1 (X) or 2 (O)
+     * @return an array of the current row and column
+     */
     static public int[] hint(int[][] board, int piece){
         int rowCount = TicTacToe.rowsIn(board);
         int columnCount = TicTacToe.columnsIn(board);
+        //For every row board
         for(int row = 0; row < rowCount; row++){
+            //For every column in the board
             for(int column = 0; column < columnCount; column++)
+                //If we can play at this row and column
                 if (TicTacToe.canPlay(board, row, column)){
-                    TicTacToe.play(board,row, column, piece);
+                    // Play the player’s piece
+                    TicTacToe.play(board, row, column, piece);
+                    // If the player has won the game
                     if (TicTacToe.won(board, row, column, piece)){
+                        // Remove the player’s piece from the last played location
                         board[row][column] = 0;
+                        // Return the row and column of hint
                         int [] rowColumnOfHint = {row, column};
                         return rowColumnOfHint;
                     }
-                    else{
+                    else{ // Otherwise nobody has won game,
                         board[row][column] = 0;
                     }
                 }
         }
+        // Default return -1 for both row and column
         int row = -1;
         int column = -1;
         int [] defaultReturn = {row, column};
