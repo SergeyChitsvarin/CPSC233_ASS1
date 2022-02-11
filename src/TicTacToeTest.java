@@ -282,13 +282,39 @@ class TicTacToeTest {
         assertFalse(win);
     }
 
+    /**
+     * when the board is full
+     * function should return -1 for both row and column
+     */
     @Test
-    void hint() {
-
+    void hintCantPlaySuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][0] = 1; board[0][1] = 1; board[0][2] = 1;
+        board[1][0] = 1; board[1][1] = 1; board[1][2] = 1;
+        board[2][0] = 1; board[2][1] = 1; board[2][2] = 1;
+        int[] expectedArray = new int[] {-1, -1};
+        int[] hintedArray = TicTacToe.hint(board, 1);
+        assertArrayEquals(expectedArray, hintedArray);
     }
+
+    /**
+     * when player is going to win next move
+     * function should remove the players piece from the last played location
+     * and return the row and column of winning square
+     */
+    @Test
+    void hintCanPlaySuccess() {
+        int[][] board = TicTacToe.createBoard(3,3);
+        board[0][0] = 1; board[0][1] = 1;
+        int[] hintedArray = TicTacToe.hint(board, 1);
+        int [] expectedRowColumn = new int[]{0, 2};
+        assertArrayEquals(expectedRowColumn, hintedArray);
+    }
+
 
     @Test
     void factorial() {
+
     }
 
     @BeforeEach

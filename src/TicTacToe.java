@@ -42,6 +42,7 @@ public class TicTacToe extends Canvas {
 
     /**
      * This function creates a game board
+     *
      * @param rows number of rows
      * @param columns number of columns
      * @return 2D array with number of rows and columns passed in parameters, filled with '0's
@@ -55,67 +56,86 @@ public class TicTacToe extends Canvas {
     }
 
     /**
+     * the function takes the game board and returns the number of rows
      *
      * @param board 2d array of the game board
      * @return number of rows the board has
      */
     // refferences: finding number of rows https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
     public static int rowsIn(int[][] board){
+        // takes length of board and uses it to determine the number of rows
         int rowCount = board.length;
+        // returns number of rows
         return rowCount;
     }
     /**
+     * the function takes the game board and returns the number of rows
      *
      * @param board 2d array of the game board
      * @return number of columns the board has
      */
     // refferences: finding number of columns https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
     public static int columnsIn(int[][] board){
+        // takes length of first array in board and uses it to determine the number of columns
         int columnCount = board[0].length;
+        // returns column count
         return columnCount;
     }
 
     /**
+     * the function determines if the certain row and column is empty (meaning can play)
      *
      * @param board 2d array of the game board
      * @param row certain row of the game board
      * @param column certain column of the game board
-     * @return
+     * @return returns true if the certain cell is empty and false if it is filled
      */
     public static boolean canPlay(int [][] board, int row, int column){
+        // returns the boolean returned by equation
+        // if true certain cell is empty therefore can play
+        // if false certain cell is filled and can not play on this cell
         return (board[row][column] == 0);
 
     }
 
     /**
+     * function plays piece at certain row and column
      *
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      */
     public static void play(int[][] board, int row, int column, int piece){
+        // assign a piece to certain row and column
         board[row][column] = piece;
     }
 
     /**
+     * function goes through every row and column and determines if board is filled
      *
      * @param board 2d array of the game board
-     * @return boolean that determines if the board is full or not
+     * @return boolean that determines if the board is full or not (true is filled, false is not filled)
      */
     public static boolean full(int[][] board){
+        // calculate the number of rows and columns in board
         int rowCount = TicTacToe.rowsIn(board);
         int columnCount = TicTacToe.columnsIn(board);
+        // go through each row and column
         for(int row = 0; row < rowCount; row++){
             for(int column = 0; column < columnCount; column++){
+                // return false if at least one of the cells is empty
                 if (board[row][column] == 0){
                     return false;
                 }
 
             }
         }
+        // return true if none of the cells are not filled
         return true;
     }
 
     /**
+     * function checks if the player has won in any rows
+     * by having 3 of the same consecutive piece
      *
      * @param board 2d array of the game board
      * @param row certain row of the game board
@@ -123,12 +143,17 @@ public class TicTacToe extends Canvas {
      * @return boolean value indicating a winning row if true.
      */
     public static boolean winInRow(int[][] board, int row, int piece) {
+        // calculates the number of columns in the board
         int columnCount = TicTacToe.columnsIn(board);
+        // assign a variable for consecutive same pieces in a row count
         int conseqCount = 0;
+        // goes through every single column on the board
         for (int column = 0; column < columnCount; column++) {
+            // if a cell has a piece in it consecutive count gains 1
             if (board[row][column] == piece) {
                 conseqCount++;
             }
+
             else {
                 conseqCount = 0;
             }
@@ -140,6 +165,7 @@ public class TicTacToe extends Canvas {
     }
 
     /**
+     * function determines if the player has won in any columns
      *
      * @param board 2d array of the game board
      * @param column certain column of the game board
@@ -153,74 +179,89 @@ public class TicTacToe extends Canvas {
             if (board[row][column] == piece) {
                 conseqCount++;
             }
+            // if the cell does not have a piece in it the consecutive count is reset
             else {
                 conseqCount = 0;
             }
+            // if the consecutive count reaches 3 the player has won and the function returns true
             if (conseqCount == 3) {
                 return true;
             }
         }
+        // if consecutive count never reaches 3 the player has not won therefore the function
+        // retuns false
         return false;
     }
 
     /**
+     * function checks a single backslash diagonal to see if player has won
      *
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @param currentRowIndex index of the row from which to start going through diagonals
      * @param currentColumnIndex index of the column from which to start going through diagonals
-     * @return return a boolean value indicating 3 consecutive pieces if true
+     * @return a boolean value, true meaning there is a win in diagonal and false meaning there is not
      */
     public static boolean checkSingleDiagonalBS(int[][] board, int piece, int currentRowIndex, int currentColumnIndex){
+        // find and assign the last index for column and row
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
         int conseqCount = 0;
-
+        // while current row and column is less than last
         while (currentRowIndex <= lastRowIndex && currentColumnIndex <= lastColumnIndex){
+            // if the cell has a piece the consecutive count gains 1
             if (board[currentRowIndex][currentColumnIndex] == piece) {
                 conseqCount++;
             }
+            // if the current cell does not have a piece the consecutive count is reset
             else {
                 conseqCount = 0;
             }
+            // if the consecutive count is 3 the player has won and the function returns true
             if (conseqCount == 3) {
                 return true;
             }
+            // add one to the column and row index to go onto the next cell
             currentColumnIndex++;
             currentRowIndex++;
         }
+        // if there is no win in the diagonals function returns false
         return false;
     }
     /**
-     *
+     * the function checks every backslash diagonal for a potential win
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @return boolean value indicating a winning backslash diagonal if true
      */
     public static boolean winInDiagonalBS(int[][] board, int piece){
+        // finds and assigns the index of last column and row
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
-        // check top diagonals
+        // starts on the 1st row and changes the column to go through all diagonals
         int currentRowIndex = 0;
         for (int currentColumnIndex = 0; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
             boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            // if there is a win in any diagonals returns true
             if (won){
                 return true;
             }
         }
+        // keeps column index at 0 and goes through all the rows
         int currentColumnIndex = 0;
         for (currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
             boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
+            // if there is a win in any diagonals returns true
             if (won){
                 return true;
             }
         }
-
+        // if no diagonals have a win function returns false
         return false;
     }
 
     /**
-     *
+     * function checks a single frontslash diagonal to see if player has won
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @param currentRowIndex index of the row from which to start going through diagonals
@@ -228,58 +269,71 @@ public class TicTacToe extends Canvas {
      * @return boolean value indicating a winning front slash diagonal if true
      */
     public static boolean checkSingleDiagonalFS(int[][] board, int piece, int currentRowIndex, int currentColumnIndex){
-        int lastColumnIndex = columnsIn(board)-1;
+        // finds and assigns the last row index
         int lastRowIndex = rowsIn(board)-1;
+        // sets a count for consecutive pieces
         int conseqCount = 0;
+        // loops while the current row index is less than or equal to last row index
+        // and while 0 is less than or equal to the current column index
         while ((currentRowIndex <= lastRowIndex) && (0 <= currentColumnIndex)){
+            // if the cell has the piece in it adds one to the consecutive count
             if (board[currentRowIndex][currentColumnIndex] == piece){
                 conseqCount++;
             }
+            // if there is no piece in the current cell the consecutive count is reset
             else {
                 conseqCount = 0;
             }
+            // if the consecutive count is equal to 3 the function returns true
             if (conseqCount == 3) {
                 return true;
             }
+            // subtracts one from the current column index and adds to the current row index to go to the next cell in the diagonal
             currentColumnIndex--;
             currentRowIndex++;
 
         }
+        // returns false if no win found
         return false;
     }
 
     /**
-     *
+     * function checks all the diagonals for a potential win
      * @param board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @return boolean value indicating a winning front slash diagonal if true
      */
     public static boolean winInDiagonalFS(int[][] board, int piece){
+        // finds and assigns the last row/column index
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
-        // check top diagonals
-
+        // loops while current column index is greater than or equal to 0
+        // while also adding one to the current column index
         for (int currentColumnIndex = lastColumnIndex; currentColumnIndex >= 0; currentColumnIndex--){
             boolean won = TicTacToe.checkSingleDiagonalFS(board, piece, 0, currentColumnIndex);
+            // if there is a win in this diagonal returns true
             if (won){
                 return true;
             }
         }
 
-
+        // loops until current row index is greater than last row index
+        // adds to the current row index to go on to the next row
         int currentColumnIndex = lastColumnIndex;
         for (int currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
             boolean won = TicTacToe.checkSingleDiagonalFS(board, piece, currentRowIndex, currentColumnIndex);
+            // if there is a win in this diagonal returns true
             if (won){
                 return true;
             }
         }
-
+        // if there are not 3 consecutive pieces in any of the diagonals returns false
         return false;
     }
 
     /**
      * the function checks if there is a win in any possible position on the board
+     *
      * @param board board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @param row certain row of the game board
@@ -309,6 +363,7 @@ public class TicTacToe extends Canvas {
      * if the player can play then the function plays a piece and checks if the player won
      * if won it removes the players piece
      * if can't play for the beginning the function returns -1 for row and column
+     *
      * @param board board 2d array of the game board
      * @param piece either 1 (X) or 2 (O)
      * @return an array of the current row and column
