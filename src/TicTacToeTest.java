@@ -7,6 +7,13 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
+
+    /**
+     * Name: Sergey Chitsvarin
+     * date: 2022/02/11
+     * Tutorial:04
+     */
+
     /**
      * test to see if the function creates and returns a 2D integer array,
      * filled with 0's

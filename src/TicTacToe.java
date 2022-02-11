@@ -17,6 +17,12 @@ import java.util.List;
  * @author Jonathan Hudson
  * @version 1.0
  */
+
+/**
+ * Name: Sergey Chitsvarin
+ * date: 2022/02/11
+ * Tutorial:04
+ */
 public class TicTacToe extends Canvas {
 
     //GAME PIECE CONSTANTS (public for visibility for JUnit Test)
@@ -74,10 +80,10 @@ public class TicTacToe extends Canvas {
      * @param board 2d array of the game board
      * @return number of columns the board has
      */
-    // refferences: finding number of columns https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
+    // references: finding number of columns https://stackoverflow.com/questions/5932604/return-number-of-rows-in-2d-array
     public static int columnsIn(int[][] board){
         // takes length of first array in board and uses it to determine the number of columns
-        int columnCount = board[0].length;
+        int columnCount = board[EMPTY].length;
         // returns column count
         return columnCount;
     }
@@ -94,7 +100,7 @@ public class TicTacToe extends Canvas {
         // returns the boolean returned by equation
         // if true certain cell is empty therefore can play
         // if false certain cell is filled and can not play on this cell
-        return (board[row][column] == 0);
+        return (board[row][column] == EMPTY);
 
     }
 
@@ -120,10 +126,10 @@ public class TicTacToe extends Canvas {
         int rowCount = TicTacToe.rowsIn(board);
         int columnCount = TicTacToe.columnsIn(board);
         // go through each row and column
-        for(int row = 0; row < rowCount; row++){
-            for(int column = 0; column < columnCount; column++){
+        for(int row = EMPTY; row < rowCount; row++){
+            for(int column = EMPTY; column < columnCount; column++){
                 // return false if at least one of the cells is empty
-                if (board[row][column] == 0){
+                if (board[row][column] == EMPTY){
                     return false;
                 }
 
@@ -146,16 +152,16 @@ public class TicTacToe extends Canvas {
         // calculates the number of columns in the board
         int columnCount = TicTacToe.columnsIn(board);
         // assign a variable for consecutive same pieces in a row count
-        int conseqCount = 0;
+        int conseqCount = EMPTY;
         // goes through every single column on the board
-        for (int column = 0; column < columnCount; column++) {
+        for (int column = EMPTY; column < columnCount; column++) {
             // if a cell has a piece in it consecutive count gains 1
             if (board[row][column] == piece) {
                 conseqCount++;
             }
 
             else {
-                conseqCount = 0;
+                conseqCount = EMPTY;
             }
             if (conseqCount == 3) {
                 return true;
@@ -174,14 +180,14 @@ public class TicTacToe extends Canvas {
      */
     public static boolean winInColumn(int[][] board, int column, int piece) {
         int rowCount = TicTacToe.rowsIn(board);
-        int conseqCount = 0;
-        for (int row =0; row < rowCount; row++) {
+        int conseqCount = EMPTY;
+        for (int row =EMPTY; row < rowCount; row++) {
             if (board[row][column] == piece) {
                 conseqCount++;
             }
             // if the cell does not have a piece in it the consecutive count is reset
             else {
-                conseqCount = 0;
+                conseqCount = EMPTY;
             }
             // if the consecutive count reaches 3 the player has won and the function returns true
             if (conseqCount == 3) {
@@ -206,7 +212,7 @@ public class TicTacToe extends Canvas {
         // find and assign the last index for column and row
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
-        int conseqCount = 0;
+        int conseqCount = EMPTY;
         // while current row and column is less than last
         while (currentRowIndex <= lastRowIndex && currentColumnIndex <= lastColumnIndex){
             // if the cell has a piece the consecutive count gains 1
@@ -215,7 +221,7 @@ public class TicTacToe extends Canvas {
             }
             // if the current cell does not have a piece the consecutive count is reset
             else {
-                conseqCount = 0;
+                conseqCount = EMPTY;
             }
             // if the consecutive count is 3 the player has won and the function returns true
             if (conseqCount == 3) {
@@ -239,8 +245,8 @@ public class TicTacToe extends Canvas {
         int lastColumnIndex = columnsIn(board)-1;
         int lastRowIndex = rowsIn(board)-1;
         // starts on the 1st row and changes the column to go through all diagonals
-        int currentRowIndex = 0;
-        for (int currentColumnIndex = 0; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
+        int currentRowIndex = EMPTY;
+        for (int currentColumnIndex = EMPTY; currentColumnIndex <= lastColumnIndex; currentColumnIndex++){
             boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
             // if there is a win in any diagonals returns true
             if (won){
@@ -248,7 +254,7 @@ public class TicTacToe extends Canvas {
             }
         }
         // keeps column index at 0 and goes through all the rows
-        int currentColumnIndex = 0;
+        int currentColumnIndex = EMPTY;
         for (currentRowIndex = 1; currentRowIndex <= lastRowIndex; currentRowIndex++) {
             boolean won = TicTacToe.checkSingleDiagonalBS(board, piece, currentRowIndex, currentColumnIndex);
             // if there is a win in any diagonals returns true
@@ -272,7 +278,7 @@ public class TicTacToe extends Canvas {
         // finds and assigns the last row index
         int lastRowIndex = rowsIn(board)-1;
         // sets a count for consecutive pieces
-        int conseqCount = 0;
+        int conseqCount = EMPTY;
         // loops while the current row index is less than or equal to last row index
         // and while 0 is less than or equal to the current column index
         while ((currentRowIndex <= lastRowIndex) && (0 <= currentColumnIndex)){
@@ -282,7 +288,7 @@ public class TicTacToe extends Canvas {
             }
             // if there is no piece in the current cell the consecutive count is reset
             else {
-                conseqCount = 0;
+                conseqCount = EMPTY;
             }
             // if the consecutive count is equal to 3 the function returns true
             if (conseqCount == 3) {
@@ -309,8 +315,8 @@ public class TicTacToe extends Canvas {
         int lastRowIndex = rowsIn(board)-1;
         // loops while current column index is greater than or equal to 0
         // while also adding one to the current column index
-        for (int currentColumnIndex = lastColumnIndex; currentColumnIndex >= 0; currentColumnIndex--){
-            boolean won = TicTacToe.checkSingleDiagonalFS(board, piece, 0, currentColumnIndex);
+        for (int currentColumnIndex = lastColumnIndex; currentColumnIndex >= EMPTY; currentColumnIndex--){
+            boolean won = TicTacToe.checkSingleDiagonalFS(board, piece, EMPTY, currentColumnIndex);
             // if there is a win in this diagonal returns true
             if (won){
                 return true;
@@ -372,9 +378,9 @@ public class TicTacToe extends Canvas {
         int rowCount = TicTacToe.rowsIn(board);
         int columnCount = TicTacToe.columnsIn(board);
         //For every row board
-        for(int row = 0; row < rowCount; row++){
+        for(int row = EMPTY; row < rowCount; row++){
             //For every column in the board
-            for(int column = 0; column < columnCount; column++)
+            for(int column = EMPTY; column < columnCount; column++)
                 //If we can play at this row and column
                 if (TicTacToe.canPlay(board, row, column)){
                     // Play the player’s piece
@@ -382,13 +388,13 @@ public class TicTacToe extends Canvas {
                     // If the player has won the game
                     if (TicTacToe.won(board, row, column, piece)){
                         // Remove the player’s piece from the last played location
-                        board[row][column] = 0;
+                        board[row][column] = EMPTY;
                         // Return the row and column of hint
                         int [] rowColumnOfHint = {row, column};
                         return rowColumnOfHint;
                     }
                     else{ // Otherwise nobody has won game,
-                        board[row][column] = 0;
+                        board[row][column] = EMPTY;
                     }
                 }
         }
