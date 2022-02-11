@@ -2,6 +2,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
@@ -311,77 +313,25 @@ class TicTacToeTest {
         assertArrayEquals(expectedRowColumn, hintedArray);
     }
 
+    /**
+     * function should use the n given (3) and return (6) it's factorial value
+     */
 
     @Test
-    void factorial() {
-
+    void factorialSuccess() {
+        BigInteger factorialValue = TicTacToe.factorial(3);
+        BigInteger expectedValue = BigInteger.valueOf(6);
+        assertEquals(expectedValue,factorialValue);
     }
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
+    /**
+     * function should use the n given (0) and return it's factorial value (1)
+     */
     @Test
-    void testCreateBoard() {
+    void factorialValueIs0Success() {
+        BigInteger factorialValue = TicTacToe.factorial(0);
+        BigInteger expectedValue = BigInteger.valueOf(1);
+        assertEquals(expectedValue,factorialValue);
     }
 
-    @Test
-    void testRowsIn() {
-    }
-
-    @Test
-    void testColumnsIn() {
-    }
-
-    @Test
-    void testCanPlay() {
-    }
-
-    @Test
-    void testPlay() {
-    }
-
-    @Test
-    void testFull() {
-    }
-
-    @Test
-    void testWinInRow() {
-    }
-
-    @Test
-    void testWinInColumn() {
-    }
-
-    @Test
-    void checkSingleDiagonalBS() {
-    }
-
-    @Test
-    void testWinInDiagonalBS() {
-    }
-
-    @Test
-    void checkSingleDiagonalFS() {
-    }
-
-    @Test
-    void testWinInDiagonalFS() {
-    }
-
-    @Test
-    void won() {
-    }
-
-    @Test
-    void testHint() {
-    }
-
-    @Test
-    void testFactorial() {
-    }
 }
