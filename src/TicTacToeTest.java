@@ -314,7 +314,7 @@ class TicTacToeTest {
     }
 
     /**
-     * function should use the n given (3) and return (6) it's factorial value
+     * function takes integer 3 and returns its factorial value (6)
      */
 
     @Test
@@ -325,11 +325,21 @@ class TicTacToeTest {
     }
 
     /**
-     * function should use the n given (0) and return it's factorial value (1)
+     * function takes integer 0 and return its factorial value (1)
      */
     @Test
     void factorialValueIs0Success() {
         BigInteger factorialValue = TicTacToe.factorial(0);
+        BigInteger expectedValue = BigInteger.valueOf(1);
+        assertEquals(expectedValue,factorialValue);
+    }
+
+    /**
+     * function takes integer 1 and return its factorial value 1
+     */
+    @Test
+    void factorialValueIs1Success() {
+        BigInteger factorialValue = TicTacToe.factorial(1);
         BigInteger expectedValue = BigInteger.valueOf(1);
         assertEquals(expectedValue,factorialValue);
     }
